@@ -1,0 +1,23 @@
+# Dependency files
+node_modules/
+.pnp.*
+package.tgz
+package.json-prepack
+
+# Yarn files
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
+# Build output
+dist/
+
+# Environment files
+.env
+
+# Configuration files
+.npmrc
+.vscode/

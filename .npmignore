@@ -1,0 +1,10 @@
+# Include license
+!.gitignore
+!LICENSE
+!README.md
+
+# Exclude dev files
+/tests
+/coverage
+*.log
+.env

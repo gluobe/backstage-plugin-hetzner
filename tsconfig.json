@@ -1,0 +1,22 @@
+{
+  "include": ["src", "dev", "tests", ".eslintrc.js"], 
+  "exclude": ["node_modules", "dist", "dist-types"],
+  "compilerOptions": {
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "outDir": "dist-types",
+    "rootDir": ".",
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "target": "ESNext",
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    "jsx": "react-jsx",
+    "allowJs": true,
+    "strict": true,
+    "jsxImportSource": "react",
+    "forceConsistentCasingInFileNames": true,
+  }
+}
