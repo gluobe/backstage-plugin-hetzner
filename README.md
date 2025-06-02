@@ -61,24 +61,24 @@ The following sections will help you get the plugin setup and running.
 
 To setup the HetznerCloud frontend you'll need to do the following steps:
 
-1. First we need to add the `@gluobe/backstage-plugin-hetzner` package to your frontend app:
+1. First we need to add the `@gluo-nv/backstage-plugin-hetzner` package to your frontend app:
 
    ```sh
    # From your Backstage root directory
-   yarn --cwd packages/app add @gluobe/backstage-plugin-hetzner
+   yarn --cwd packages/app add @gluo-nv/backstage-plugin-hetzner
    ```
 
 2. Now open the `packages/app/src/App.tsx` file
 3. Then after all the import statements add the following line:
 
    ```ts
-   import { HetznerCloudPage } from '@gluobe/backstage-plugin-hetzner';
+   import { HetznerPage } from '@gluo-nv/backstage-plugin-hetzner';
    ```
 
 4. In this same file just before the closing `</ FlatRoutes>`, this will be near the bottom of the file, add this line:
 
    ```ts
-   <Route path="/hetzner-cloud" element={<HetznerCloudPage />} />
+   <Route path="/hetzner" element={<HetznerPage />} />
    ```
 
 5. Next open the `packages/app/src/components/Root/Root.tsx` file
@@ -91,10 +91,70 @@ To setup the HetznerCloud frontend you'll need to do the following steps:
 7. Then add this line just before the `</SidebarGroup>` line:
 
    ```ts
-   <SidebarItem icon={Cloud} to="hetzner-cloud" text="Hetzner Cloud" />
+   <SidebarItem icon={Cloud} to="hetzner" text="Hetzner Cloud" />
    ```
 
-8. Now run `yarn dev` from the root of your project and you should see the HetznerCloud option show up just below Settings in your sidebar and clicking on it will get you to the [Info tab](#info)
+8. Add the following `utils.tsx` file in `packages/app/src/components/catalog`:
+
+   ```ts
+   import { Entity } from '@backstage/catalog-model';
+
+   export const isHetznerResource = (entity: Entity): boolean => {
+     const hetznerData = entity.metadata.annotations?.['hetzner.com/data'];
+     try {
+       return hetznerData !== undefined && JSON.parse(hetznerData) !== null;
+     } catch (e) {
+       return false;
+     }
+   };
+   ```
+
+9. Then open the `packages/app/src/components/catalog/EntityPage.tsx` file
+10. Add this import statement:
+
+    ```ts
+    import { EntityHetznerContent } from '@gluo-nv/backstage-plugin-hetzner';
+    import { isHetznerResource } from './utils';
+    ```
+
+11. Add the code between the `Hetzner Cloud Plugin` comments:
+
+    ```tsx
+    const overviewContent = (
+      <Grid container spacing={3} alignItems="stretch">
+        {entityWarningContent}
+        <Grid item md={6}>
+          <EntityAboutCard variant="gridItem" />
+        </Grid>
+        <Grid item md={6} xs={12}>
+          <EntityCatalogGraphCard variant="gridItem" height={400} />
+        </Grid>
+
+        {/* Hetzner Cloud Plugin */}
+        <EntitySwitch>
+          <EntitySwitch.Case
+            if={entity =>
+              isKind('resource')(entity) && isHetznerResource(entity)
+            }
+          >
+            <Grid item md={6}>
+              <EntityHetznerContent />
+            </Grid>
+          </EntitySwitch.Case>
+        </EntitySwitch>
+        {/* Hetzner Cloud Plugin */}
+
+        <Grid item md={4} xs={12}>
+          <EntityLinksCard />
+        </Grid>
+        <Grid item md={8} xs={12}>
+          <EntityHasSubcomponentsCard variant="gridItem" />
+        </Grid>
+      </Grid>
+    );
+    ```
+
+12. Now run `yarn dev` from the root of your project and you should see the HetznerCloud option show up just below Settings in your sidebar and clicking on it will get you to the [Info tab](#info)
 
 ## Development
 
@@ -233,9 +293,9 @@ export const HetznerCloudPage = hetznerCloudPlugin.provide(
   createRoutableExtension({
     name: 'HetznerCloudPage',
     component: () =>
-      import('./components/IndexComponent').then((m) => m.IndexComponent),
+      import('./components/IndexComponent').then(m => m.IndexComponent),
     mountPoint: rootRouteRef,
-  })
+  }),
 );
 
 // dev
@@ -243,9 +303,9 @@ export const ResourcesCardPage = hetznerCloudPlugin.provide(
   createRoutableExtension({
     name: 'ResourcesCardPage',
     component: () =>
-      import('./components/entity/ResourcesCard').then((m) => m.ResourcesCard),
+      import('./components/entity/ResourcesCard').then(m => m.ResourcesCard),
     mountPoint: resourcesCardRouteRef,
-  })
+  }),
 );
 ```
 
