@@ -4,10 +4,10 @@
   "version": "0.1.0",
   "author": "Gluo NV <info@gluo.be> (https://gluo.be)",
   "license": "AGPL-3.0",
-  "homepage": "https://github.com/gluobe/backstage-plugin-hetzner",
+  "homepage": "https://github.com/gluobe/hetzner-backstage-plugin",
   "repository": {
     "type": "git",
-    "url": "git@github.com:gluobe/backstage-plugin-hetzner.git"
+    "url": "git@github.com:gluobe/hetzner-backstage-plugin.git"
   },
   "main": "./dist/index.esm.js",
   "module": "./dist/index.esm.js",

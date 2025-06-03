@@ -135,7 +135,7 @@ export const ProjectSummary = () => {
       )}
       {!loading && (
         <Grid container spacing={2}>
-          <Grid item xs={12} sm={6} md={4}>
+          <Grid item xs={12} md={12} lg={6}>
             <MetricCard
               title="Servers"
               count={data.totalServers}
@@ -143,7 +143,7 @@ export const ProjectSummary = () => {
               onClick={() => handleNavigate('virtual-machine')}
             />
           </Grid>
-          <Grid item xs={12} sm={6} md={4}>
+          <Grid item xs={12} md={12} lg={6}>
             <MetricCard
               title="Volumes"
               count={data.totalVolumes}
@@ -151,7 +151,7 @@ export const ProjectSummary = () => {
               onClick={() => handleNavigate('storage')}
             />
           </Grid>
-          <Grid item xs={12} sm={6} md={4}>
+          <Grid item xs={12} md={12} lg={6}>
             <MetricCard
               title="Primary IPs"
               count={data.totalPrimaryIps}
