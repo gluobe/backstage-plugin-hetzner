@@ -1,7 +1,7 @@
 {
   "name": "@gluo-nv/backstage-plugin-hetzner",
   "description": "Backstage frontend plugin for Hetzner Cloud integration.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "Gluo NV <info@gluo.be> (https://gluo.be)",
   "license": "AGPL-3.0",
   "homepage": "https://github.com/gluobe/hetzner-backstage-plugin",
